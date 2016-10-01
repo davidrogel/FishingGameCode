@@ -16,7 +16,7 @@ public class Fish : MonoBehaviour {
 	void Update () {
         movSpeed = fishManagerScript.GetMovSpeed();
         velocity.z = movSpeed;
-                
+        
         transform.Translate(-velocity * Time.deltaTime, Space.World);
     }    
 }

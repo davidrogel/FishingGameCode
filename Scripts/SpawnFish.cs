@@ -2,10 +2,10 @@
 using System.Collections;
 
 public class SpawnFish : MonoBehaviour {
-
+    
     public float leftLimit = -4, rightLimit = 4;
     public float timeBetweenSpawnFish = 2.2f;
-    public float timeBetweenOneFishAndther = 0.5f;
+    public float minTimeBetweenOneFishAndOther = 0.5f;
 
     float decrement = 0.0035f;
     int goldFishProbability = 10;
@@ -21,8 +21,8 @@ public class SpawnFish : MonoBehaviour {
 	}
 
     void Update()
-    {        
-        if (timeBetweenSpawnFish > timeBetweenOneFishAndther)
+    {   
+        if (timeBetweenSpawnFish > minTimeBetweenOneFishAndOther)
         {
             timeBetweenSpawnFish -= decrement;
         }
@@ -32,13 +32,14 @@ public class SpawnFish : MonoBehaviour {
     {
         Vector3 newSpawnPoint = new Vector3(Random.Range(leftLimit, rightLimit), 
             myTransform.position.y, myTransform.position.z);        
-
+        
         Instantiate(fish, newSpawnPoint, fish.transform.rotation);
         
         if(GetRandomNumber() <= goldFishProbability)
         {
             Instantiate(goldFish, newSpawnPoint, goldFish.transform.rotation);
         }
+        
         if (!GameManager.Instance.GetEndGame())
             Invoke("Spawn", timeBetweenSpawnFish);
     }
